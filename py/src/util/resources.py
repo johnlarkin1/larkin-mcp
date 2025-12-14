@@ -10,8 +10,6 @@ logger = logging.getLogger(__name__)
 
 
 class ResourceNotFoundError(Exception):
-    """Raised when a requested resource does not exist."""
-
     def __init__(self, name: str, path: Path):
         self.name = name
         self.path = path
@@ -19,8 +17,6 @@ class ResourceNotFoundError(Exception):
 
 
 class ResourceReadError(Exception):
-    """Raised when a resource exists but cannot be read."""
-
     def __init__(self, name: str, path: Path, cause: Exception):
         self.name = name
         self.path = path
@@ -29,20 +25,6 @@ class ResourceReadError(Exception):
 
 
 def load_resource(name: str, *, raise_on_error: bool = False) -> str:
-    """Load a resource file by name.
-
-    Args:
-        name: Resource identifier (e.g., "resume", "bio", "projects")
-        raise_on_error: If True, raise exceptions instead of returning error strings.
-                       Defaults to False for backward compatibility.
-
-    Returns:
-        Resource content as string, or error message if raise_on_error=False.
-
-    Raises:
-        ResourceNotFoundError: If raise_on_error=True and resource not found.
-        ResourceReadError: If raise_on_error=True and resource cannot be read.
-    """
     if name == "resume":
         path = RESUME_MD_PATH
     else:
@@ -68,21 +50,15 @@ def load_resource(name: str, *, raise_on_error: bool = False) -> str:
 
 
 def list_resources() -> list[str]:
-    """List all available resource identifiers.
-
-    Returns:
-        List of resource names that exist and can be loaded.
-    """
     resources = []
 
-    # Check resume separately since it has a special path
+    # resume has special path
     if RESUME_MD_PATH.exists():
         resources.append("resume")
 
-    # Check other resources from categories
     for expected in RESOURCES_CATEGORIES:
         if expected == "resume":
-            continue  # Already handled above
+            continue  # already handled above
         resource_path = RESOURCES_DIR / f"{expected}.md"
         if resource_path.exists():
             resources.append(expected)
@@ -92,14 +68,6 @@ def list_resources() -> list[str]:
 
 
 def search_resources(query: str) -> dict[str, list[str]]:
-    """Search all resources for lines matching a query string.
-
-    Args:
-        query: Search string (case-insensitive).
-
-    Returns:
-        Dictionary mapping resource names to lists of matching lines.
-    """
     if not query or not query.strip():
         logger.warning("Empty search query provided")
         return {}
@@ -124,7 +92,6 @@ def search_resources(query: str) -> dict[str, list[str]]:
 
 
 def get_resource_info(name: str) -> ResourceInfo:
-    """Get metadata about a resource."""
     if name == "resume":
         path = RESUME_MD_PATH
     else:
