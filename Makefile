@@ -4,6 +4,7 @@
         lint lint-py lint-ts lint-rs \
         format format-py format-ts format-rs \
         check check-py check-ts check-rs \
+        test test-py test-ts test-rs \
         clean clean-py clean-ts clean-rs
 
 # Default target
@@ -30,6 +31,12 @@ help:
 	@echo "  make lint           - Lint all implementations"
 	@echo "  make format         - Format all implementations"
 	@echo "  make check          - Check formatting (no changes)"
+	@echo ""
+	@echo "Test Commands:"
+	@echo "  make test           - Run tests for all implementations"
+	@echo "  make test-py        - Run Python tests (pytest)"
+	@echo "  make test-ts        - Run TypeScript tests (bun test)"
+	@echo "  make test-rs        - Run Rust tests (cargo test)"
 	@echo ""
 	@echo "Clean Commands:"
 	@echo "  make clean          - Clean all build artifacts"
@@ -172,6 +179,33 @@ check-rs:
 	@echo "Checking Rust formatting..."
 	@if [ -f rs/Cargo.toml ]; then \
 		cd rs && cargo fmt --check; \
+	else \
+		echo "No Rust project found, skipping..."; \
+	fi
+
+# =============================================================================
+# Test Commands
+# =============================================================================
+
+test: test-py test-ts test-rs
+	@echo "All tests complete!"
+
+test-py:
+	@echo "Running Python tests..."
+	cd py && uv run pytest
+
+test-ts:
+	@echo "Running TypeScript tests..."
+	@if [ -f tsx/package.json ]; then \
+		cd tsx && bun test; \
+	else \
+		echo "No TypeScript project found, skipping..."; \
+	fi
+
+test-rs:
+	@echo "Running Rust tests..."
+	@if [ -f rs/Cargo.toml ]; then \
+		cd rs && cargo test; \
 	else \
 		echo "No Rust project found, skipping..."; \
 	fi

@@ -59,67 +59,6 @@
         }
       },
       "required": ["available", "size_bytes"]
-    },
-    "projectDetails": {
-      "type": "object",
-      "description": "Structured project details from get_project_details tool",
-      "properties": {
-        "name": {
-          "type": "string"
-        },
-        "url": {
-          "type": "string",
-          "format": "uri"
-        },
-        "tech_stack": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        },
-        "summary": {
-          "type": "string"
-        }
-      },
-      "required": ["name"]
-    },
-    "projectNotFound": {
-      "type": "object",
-      "description": "Error response when project not found",
-      "properties": {
-        "error": {
-          "type": "string"
-        },
-        "available_projects": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        }
-      },
-      "required": ["error"]
-    },
-    "searchResult": {
-      "type": "object",
-      "description": "Single semantic search result",
-      "properties": {
-        "resource": {
-          "type": "string"
-        },
-        "chunk": {
-          "type": "string"
-        },
-        "score": {
-          "type": "number",
-          "minimum": 0,
-          "maximum": 1
-        },
-        "chunk_index": {
-          "type": "integer",
-          "minimum": 0
-        }
-      },
-      "required": ["resource", "chunk", "score"]
     }
   },
   "type": "object",

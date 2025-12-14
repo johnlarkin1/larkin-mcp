@@ -39,13 +39,47 @@
         ]
       }
     },
+    "get_contact": {
+      "description": "Returns contact instructions",
+      "input": null,
+      "expectedOutput": {
+        "type": "string",
+        "assertions": [
+          "Is non-empty string",
+          "Does not start with 'Resource '"
+        ]
+      }
+    },
+    "get_projects": {
+      "description": "Returns curated list of projects",
+      "input": null,
+      "expectedOutput": {
+        "type": "string",
+        "assertions": [
+          "Is non-empty string",
+          "Does not start with 'Resource '"
+        ]
+      }
+    },
+    "get_skills": {
+      "description": "Returns skills overview",
+      "input": null,
+      "expectedOutput": {
+        "type": "string",
+        "assertions": [
+          "Is non-empty string",
+          "Does not start with 'Resource '"
+        ]
+      }
+    },
     "get_work": {
       "description": "Returns work experience details",
       "input": null,
       "expectedOutput": {
         "type": "string",
         "assertions": [
-          "Returns string (may be TODO placeholder)"
+          "Is non-empty string",
+          "Does not start with 'Resource '"
         ]
       }
     },
@@ -60,6 +94,7 @@
           "Contains 'skills'",
           "Contains 'projects'",
           "Contains 'contact'",
+          "Contains 'work'",
           "All items are strings"
         ]
       }
@@ -97,75 +132,25 @@
         "assertions": [
           "status is 'healthy'",
           "version matches semver pattern",
-          "resources is an object with resource names as keys"
+          "resources is an object with resource names as keys",
+          "each resource has 'available' boolean and 'size_bytes' integer"
         ]
       }
-    },
-    "get_section": {
-      "description": "Extracts a section from a resource",
-      "testCases": [
-        {
-          "input": {"resource": "resume", "section": "Education"},
-          "expectedOutput": {
-            "type": "string",
-            "assertions": [
-              "Contains section content or 'not found' message"
-            ]
-          }
-        },
-        {
-          "input": {"resource": "resume", "section": "NonexistentSection"},
-          "expectedOutput": {
-            "type": "string",
-            "assertions": [
-              "Contains 'not found' in message",
-              "Lists available sections"
-            ]
-          }
-        }
-      ]
-    },
-    "filter_projects_by_tech": {
-      "description": "Filters projects by technology",
-      "testCases": [
-        {
-          "input": {"tech": "Python"},
-          "expectedOutput": {
-            "type": "string",
-            "assertions": [
-              "Contains project listings or 'No projects found'"
-            ]
-          }
-        }
-      ]
-    },
-    "get_project_details": {
-      "description": "Returns structured project information",
-      "testCases": [
-        {
-          "input": {"project_name": "Scrollz"},
-          "expectedOutput": {
-            "type": "object",
-            "assertions": [
-              "Contains 'name' field",
-              "May contain 'url', 'tech_stack', 'summary' fields"
-            ]
-          }
-        },
-        {
-          "input": {"project_name": "NonexistentProject"},
-          "expectedOutput": {
-            "type": "object",
-            "assertions": [
-              "Contains 'error' field",
-              "May contain 'available_projects' array"
-            ]
-          }
-        }
-      ]
     }
   },
   "resources": {
+    "config://version": {
+      "description": "MCP version string",
+      "assertions": [
+        "Matches semver pattern (X.Y.Z)"
+      ]
+    },
+    "config://resume-version": {
+      "description": "Resume last updated date",
+      "assertions": [
+        "Matches date pattern (YYYY-MM-DD)"
+      ]
+    },
     "larkin://resume": {
       "description": "Resume in markdown format",
       "assertions": [
@@ -178,13 +163,37 @@
       "mimeType": "application/pdf",
       "assertions": [
         "Returns binary PDF data",
-        "Starts with PDF magic bytes"
+        "Starts with PDF magic bytes (%PDF)"
       ]
     },
-    "config://version": {
-      "description": "MCP version string",
+    "larkin://bio": {
+      "description": "Extended biography in markdown",
       "assertions": [
-        "Matches semver pattern"
+        "Returns non-empty string"
+      ]
+    },
+    "larkin://projects": {
+      "description": "Curated projects list in markdown",
+      "assertions": [
+        "Returns non-empty string"
+      ]
+    },
+    "larkin://contact": {
+      "description": "Contact information in markdown",
+      "assertions": [
+        "Returns non-empty string"
+      ]
+    },
+    "larkin://skills": {
+      "description": "Skills overview in markdown",
+      "assertions": [
+        "Returns non-empty string"
+      ]
+    },
+    "larkin://work": {
+      "description": "Work experience in markdown",
+      "assertions": [
+        "Returns non-empty string"
       ]
     }
   }

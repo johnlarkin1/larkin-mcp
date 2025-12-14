@@ -1,49 +1,22 @@
 """Shared pytest fixtures for larkin-mcp tests."""
 
+import json
+from pathlib import Path
+
 import pytest
 
 
 @pytest.fixture
-def sample_markdown_content() -> str:
-    """Sample markdown content for testing section extraction."""
-    return """# Main Title
-
-## Section One
-Content for section one.
-More content here.
-
-## Section Two
-Content for section two.
-
-### Subsection
-Nested content.
-
-## Section Three
-Final section content.
-"""
+def tool_contracts() -> dict:
+    """Load the tool contracts JSON for contract validation tests."""
+    contracts_path = Path(__file__).parent.parent.parent / "resources" / "test-fixtures" / "tool-contracts.json"
+    with open(contracts_path) as f:
+        return json.load(f)
 
 
 @pytest.fixture
-def sample_projects_content() -> str:
-    """Sample projects markdown for testing project parsing."""
-    return """# Projects
-
-## Active Projects
-
-### Project Alpha
-URL: https://example.com/alpha
-Stack: Python, FastAPI, PostgreSQL
-Summary: A sample project using Python and FastAPI for API development.
-
-### Project Beta
-URL: https://example.com/beta
-Stack: TypeScript, React, Node.js
-Summary: A frontend application built with React and TypeScript.
-
-## Past Projects
-
-### Project Gamma
-URL: https://example.com/gamma
-Stack: Rust, WebAssembly
-Summary: A high-performance tool built with Rust.
-"""
+def resource_schema() -> dict:
+    """Load the resource schema JSON for validation tests."""
+    schema_path = Path(__file__).parent.parent.parent / "resources" / "schemas" / "resource.schema.json"
+    with open(schema_path) as f:
+        return json.load(f)
