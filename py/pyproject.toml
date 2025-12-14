@@ -22,8 +22,9 @@ markers = [
     "integration_test: Tests the behavior of one function that integrates with external infrastructure.",
     "end_to_end_test: Tests the behavior of a full application, end-to-end."
 ]
-testpaths = []
-python_files = []
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+asyncio_mode = "auto"
 
 [project]
 name = "larkin-mcp"
@@ -34,8 +35,16 @@ requires-python = ">=3.11"
 dependencies = [
     "httpx>=0.28.1",
     "mcp[cli]>=1.24.0",
+    "pydantic>=2.0",
 ]
 
+[dependency-groups]
+dev = [
+    "mypy>=1.0",
+    "pytest>=8.0",
+    "pytest-asyncio>=0.23",
+    "ruff>=0.8.0",
+]
 [build-system]
 requires = ["hatchling"]
 build-backend = "hatchling.build"
@@ -46,5 +55,5 @@ packages = ["src"]
 [tool.hatch.build]
 include = [
     "src/**/*.py",
-    "src/resources/*.md",
+    "src/resources/content/**/*",
 ]

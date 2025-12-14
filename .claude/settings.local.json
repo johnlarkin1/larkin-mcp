@@ -1,11 +1,17 @@
 {
+  "permissions": {
+    "allow": [
+      "mcp__larkin-mcp__get_available_resources",
+      "Bash(chmod:*)",
+      "mcp__larkin-mcp__get_work",
+      "mcp__larkin-mcp__get_projects",
+      "mcp__larkin-mcp__get_bio",
+      "mcp__larkin-mcp__get_skills",
+      "mcp__larkin-mcp__get_resume"
+    ]
+  },
   "enableAllProjectMcpServers": true,
   "enabledMcpjsonServers": [
     "larkin-mcp"
-  ],
-  "permissions": {
-    "allow": [
-      "mcp__larkin-mcp__get_available_resources"
-    ]
-  }
+  ]
 }

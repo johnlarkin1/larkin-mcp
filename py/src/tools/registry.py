@@ -1,5 +1,5 @@
-from src.constants import MCP_VERSION, MCP_WEBSITE_URL, RESUME_DATE_VERSION
-from src.types.tool import Metadata
+from src.constants import MCP_VERSION, MCP_WEBSITE_URL, RESOURCES_CATEGORIES, RESUME_DATE_VERSION
+from src.types.models import HealthCheckResponse, Metadata, ResourceStatus
 from src.util.resources import list_resources, load_resource, search_resources
 
 
@@ -41,6 +41,11 @@ def register_tools(mcp):
         return load_resource("skills")
 
     @mcp.tool()
+    def get_work() -> str:
+        """Return detailed work experience and employment history."""
+        return load_resource("work")
+
+    @mcp.tool()
     def get_available_resources() -> list[str]:
         """Return identifiers for all available content resources."""
         return list_resources()
@@ -59,3 +64,21 @@ def register_tools(mcp):
             output.extend(f"  - {line.strip()}" for line in lines[:5])
 
         return "\n".join(output)
+
+    @mcp.tool()
+    def health_check() -> HealthCheckResponse:
+        """Return server health status and resource availability."""
+        resources_status = {}
+        for resource in RESOURCES_CATEGORIES:
+            content = load_resource(resource)
+            is_available = not content.startswith("Resource '") and not content.startswith("Error")
+            resources_status[resource] = ResourceStatus(
+                available=is_available,
+                size_bytes=len(content.encode()) if is_available else 0,
+            )
+
+        return HealthCheckResponse(
+            status="healthy",
+            version=MCP_VERSION,
+            resources=resources_status,
+        )

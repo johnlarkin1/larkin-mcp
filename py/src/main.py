@@ -7,6 +7,7 @@ from src.constants import (
     MCP_NAME,
     MCP_WEBSITE_URL,
 )
+from src.prompts.registry import register_prompts
 from src.resources.registry import register_resources
 from src.tools.registry import register_tools
 
@@ -25,6 +26,7 @@ mcp = FastMCP(
 
 register_tools(mcp)
 register_resources(mcp)
+register_prompts(mcp)
 
 
 def main():

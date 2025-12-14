@@ -1,0 +1,200 @@
+{
+  "$schema": "../schemas/resource.schema.json",
+  "description": "Test fixtures defining expected behavior for MCP tools across all implementations",
+  "version": "1.0.0",
+  "tools": {
+    "get_metadata": {
+      "description": "Returns server metadata",
+      "input": null,
+      "expectedOutput": {
+        "type": "object",
+        "requiredFields": ["mcp_version", "mcp_website", "resume_last_updated"],
+        "assertions": [
+          "mcp_version matches semver pattern",
+          "mcp_website is a valid URL",
+          "resume_last_updated is a date in YYYY-MM-DD format"
+        ]
+      }
+    },
+    "get_resume": {
+      "description": "Returns full resume as markdown",
+      "input": null,
+      "expectedOutput": {
+        "type": "string",
+        "assertions": [
+          "Contains 'John Larkin'",
+          "Is valid markdown",
+          "Does not start with 'Resource ' (error prefix)"
+        ]
+      }
+    },
+    "get_bio": {
+      "description": "Returns extended biography",
+      "input": null,
+      "expectedOutput": {
+        "type": "string",
+        "assertions": [
+          "Is non-empty string",
+          "Does not start with 'Resource '"
+        ]
+      }
+    },
+    "get_contact": {
+      "description": "Returns contact instructions",
+      "input": null,
+      "expectedOutput": {
+        "type": "string",
+        "assertions": [
+          "Is non-empty string",
+          "Does not start with 'Resource '"
+        ]
+      }
+    },
+    "get_projects": {
+      "description": "Returns curated list of projects",
+      "input": null,
+      "expectedOutput": {
+        "type": "string",
+        "assertions": [
+          "Is non-empty string",
+          "Does not start with 'Resource '"
+        ]
+      }
+    },
+    "get_skills": {
+      "description": "Returns skills overview",
+      "input": null,
+      "expectedOutput": {
+        "type": "string",
+        "assertions": [
+          "Is non-empty string",
+          "Does not start with 'Resource '"
+        ]
+      }
+    },
+    "get_work": {
+      "description": "Returns work experience details",
+      "input": null,
+      "expectedOutput": {
+        "type": "string",
+        "assertions": [
+          "Is non-empty string",
+          "Does not start with 'Resource '"
+        ]
+      }
+    },
+    "get_available_resources": {
+      "description": "Lists available resource identifiers",
+      "input": null,
+      "expectedOutput": {
+        "type": "array",
+        "assertions": [
+          "Contains 'resume'",
+          "Contains 'bio'",
+          "Contains 'skills'",
+          "Contains 'projects'",
+          "Contains 'contact'",
+          "Contains 'work'",
+          "All items are strings"
+        ]
+      }
+    },
+    "search_info": {
+      "description": "Searches resources for keyword matches",
+      "testCases": [
+        {
+          "input": {"query": "Python"},
+          "expectedOutput": {
+            "type": "string",
+            "assertions": [
+              "Contains match results or 'No matches found'",
+              "If matches found, contains '##' headers"
+            ]
+          }
+        },
+        {
+          "input": {"query": "xyznonexistent123"},
+          "expectedOutput": {
+            "type": "string",
+            "assertions": [
+              "Contains 'No matches found'"
+            ]
+          }
+        }
+      ]
+    },
+    "health_check": {
+      "description": "Returns server health status",
+      "input": null,
+      "expectedOutput": {
+        "type": "object",
+        "requiredFields": ["status", "version", "resources"],
+        "assertions": [
+          "status is 'healthy'",
+          "version matches semver pattern",
+          "resources is an object with resource names as keys",
+          "each resource has 'available' boolean and 'size_bytes' integer"
+        ]
+      }
+    }
+  },
+  "resources": {
+    "config://version": {
+      "description": "MCP version string",
+      "assertions": [
+        "Matches semver pattern (X.Y.Z)"
+      ]
+    },
+    "config://resume-version": {
+      "description": "Resume last updated date",
+      "assertions": [
+        "Matches date pattern (YYYY-MM-DD)"
+      ]
+    },
+    "larkin://resume": {
+      "description": "Resume in markdown format",
+      "assertions": [
+        "Returns non-empty markdown string",
+        "Contains 'John Larkin'"
+      ]
+    },
+    "larkin://resume.pdf": {
+      "description": "Resume as PDF binary",
+      "mimeType": "application/pdf",
+      "assertions": [
+        "Returns binary PDF data",
+        "Starts with PDF magic bytes (%PDF)"
+      ]
+    },
+    "larkin://bio": {
+      "description": "Extended biography in markdown",
+      "assertions": [
+        "Returns non-empty string"
+      ]
+    },
+    "larkin://projects": {
+      "description": "Curated projects list in markdown",
+      "assertions": [
+        "Returns non-empty string"
+      ]
+    },
+    "larkin://contact": {
+      "description": "Contact information in markdown",
+      "assertions": [
+        "Returns non-empty string"
+      ]
+    },
+    "larkin://skills": {
+      "description": "Skills overview in markdown",
+      "assertions": [
+        "Returns non-empty string"
+      ]
+    },
+    "larkin://work": {
+      "description": "Work experience in markdown",
+      "assertions": [
+        "Returns non-empty string"
+      ]
+    }
+  }
+}

@@ -35,3 +35,7 @@ def register_resources(mcp):
     @mcp.resource("larkin://skills")
     def get_skills() -> str:
         return load_resource("skills")
+
+    @mcp.resource("larkin://work")
+    def get_work() -> str:
+        return load_resource("work")

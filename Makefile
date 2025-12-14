@@ -4,6 +4,7 @@
         lint lint-py lint-ts lint-rs \
         format format-py format-ts format-rs \
         check check-py check-ts check-rs \
+        test test-py test-ts test-rs \
         clean clean-py clean-ts clean-rs
 
 # Default target
@@ -31,6 +32,12 @@ help:
 	@echo "  make format         - Format all implementations"
 	@echo "  make check          - Check formatting (no changes)"
 	@echo ""
+	@echo "Test Commands:"
+	@echo "  make test           - Run tests for all implementations"
+	@echo "  make test-py        - Run Python tests (pytest)"
+	@echo "  make test-ts        - Run TypeScript tests (bun test)"
+	@echo "  make test-rs        - Run Rust tests (cargo test)"
+	@echo ""
 	@echo "Clean Commands:"
 	@echo "  make clean          - Clean all build artifacts"
 
@@ -43,15 +50,23 @@ setup: setup-py setup-ts setup-rs
 
 setup-py:
 	@echo "Setting up Python..."
-	cd py && uv sync
+	cd py && uv sync --group dev
 
 setup-ts:
 	@echo "Setting up TypeScript..."
-	cd tsx && bun install
+	@if [ -f tsx/package.json ]; then \
+		cd tsx && bun install; \
+	else \
+		echo "No TypeScript project found, skipping..."; \
+	fi
 
 setup-rs:
 	@echo "Setting up Rust..."
-	cd rs && cargo build
+	@if [ -f rs/Cargo.toml ]; then \
+		cd rs && cargo build; \
+	else \
+		echo "No Rust project found, skipping..."; \
+	fi
 
 # =============================================================================
 # Run Commands (Production - stdio transport)
@@ -95,14 +110,24 @@ lint: lint-py lint-ts lint-rs
 lint-py:
 	@echo "Linting Python with ruff..."
 	cd py && uv run ruff check .
+	@echo "Type checking Python with mypy..."
+	cd py && uv run mypy src/
 
 lint-ts:
 	@echo "Linting TypeScript with prettier..."
-	npx prettier --check "tsx/**/*.{ts,tsx,js,jsx,json}"
+	@if find tsx -name "*.ts" -o -name "*.tsx" -o -name "*.js" -o -name "*.jsx" -o -name "*.json" 2>/dev/null | grep -q .; then \
+		npx prettier --check "tsx/**/*.{ts,tsx,js,jsx,json}"; \
+	else \
+		echo "No TypeScript files found, skipping..."; \
+	fi
 
 lint-rs:
 	@echo "Checking Rust formatting..."
-	cd rs && cargo fmt --check
+	@if [ -f rs/Cargo.toml ]; then \
+		cd rs && cargo fmt --check; \
+	else \
+		echo "No Rust project found, skipping..."; \
+	fi
 
 # =============================================================================
 # Format Commands
@@ -117,11 +142,19 @@ format-py:
 
 format-ts:
 	@echo "Formatting TypeScript with prettier..."
-	npx prettier --write "tsx/**/*.{ts,tsx,js,jsx,json}"
+	@if find tsx -name "*.ts" -o -name "*.tsx" -o -name "*.js" -o -name "*.jsx" -o -name "*.json" 2>/dev/null | grep -q .; then \
+		npx prettier --write "tsx/**/*.{ts,tsx,js,jsx,json}"; \
+	else \
+		echo "No TypeScript files found, skipping..."; \
+	fi
 
 format-rs:
 	@echo "Formatting Rust with cargo fmt..."
-	cd rs && cargo fmt
+	@if [ -f rs/Cargo.toml ]; then \
+		cd rs && cargo fmt; \
+	else \
+		echo "No Rust project found, skipping..."; \
+	fi
 
 # =============================================================================
 # Check Commands (verify formatting without changes)
@@ -136,11 +169,46 @@ check-py:
 
 check-ts:
 	@echo "Checking TypeScript formatting..."
-	npx prettier --check "tsx/**/*.{ts,tsx,js,jsx,json}"
+	@if find tsx -name "*.ts" -o -name "*.tsx" -o -name "*.js" -o -name "*.jsx" -o -name "*.json" 2>/dev/null | grep -q .; then \
+		npx prettier --check "tsx/**/*.{ts,tsx,js,jsx,json}"; \
+	else \
+		echo "No TypeScript files found, skipping..."; \
+	fi
 
 check-rs:
 	@echo "Checking Rust formatting..."
-	cd rs && cargo fmt --check
+	@if [ -f rs/Cargo.toml ]; then \
+		cd rs && cargo fmt --check; \
+	else \
+		echo "No Rust project found, skipping..."; \
+	fi
+
+# =============================================================================
+# Test Commands
+# =============================================================================
+
+test: test-py test-ts test-rs
+	@echo "All tests complete!"
+
+test-py:
+	@echo "Running Python tests..."
+	cd py && uv run pytest
+
+test-ts:
+	@echo "Running TypeScript tests..."
+	@if [ -f tsx/package.json ]; then \
+		cd tsx && bun test; \
+	else \
+		echo "No TypeScript project found, skipping..."; \
+	fi
+
+test-rs:
+	@echo "Running Rust tests..."
+	@if [ -f rs/Cargo.toml ]; then \
+		cd rs && cargo test; \
+	else \
+		echo "No Rust project found, skipping..."; \
+	fi
 
 # =============================================================================
 # Clean Commands
