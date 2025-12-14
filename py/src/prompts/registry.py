@@ -1,4 +1,7 @@
-"""Register MCP prompts for guiding LLM interactions."""
+"""Register MCP prompts for guiding LLM interactions.
+
+Note... I had CC fire up these prompts because it's a lot of writing. But you get the gist.
+"""
 
 
 def register_prompts(mcp):

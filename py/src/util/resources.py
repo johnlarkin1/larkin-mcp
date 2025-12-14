@@ -4,7 +4,6 @@ import logging
 from pathlib import Path
 
 from src.constants import RESOURCES_CATEGORIES, RESOURCES_DIR, RESUME_MD_PATH
-from src.types.models import ResourceInfo
 
 logger = logging.getLogger(__name__)
 
@@ -89,19 +88,3 @@ def search_resources(query: str) -> dict[str, list[str]]:
 
     logger.info(f"Search for '{query}' found matches in {len(results)} resources")
     return results
-
-
-def get_resource_info(name: str) -> ResourceInfo:
-    if name == "resume":
-        path = RESUME_MD_PATH
-    else:
-        path = RESOURCES_DIR / f"{name}.md"
-
-    size_bytes = 0
-    if path.exists():
-        try:
-            size_bytes = path.stat().st_size
-        except OSError as e:
-            logger.warning(f"Could not get size for '{name}': {e}")
-
-    return ResourceInfo(name=name, path=str(path), exists=path.exists(), size_bytes=size_bytes)

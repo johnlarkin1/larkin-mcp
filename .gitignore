@@ -8,7 +8,7 @@ dist/
 wheels/
 *.egg-info
 
-# Generated resources (copied from resources/content/ by scripts/copy-resources.py)
+# these get copied to each during build, we ignore them but they'll be there
 py/src/resources/content/
 tsx/src/resources/content/
 rs/src/resources/content/
