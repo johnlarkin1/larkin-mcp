@@ -1,0 +1,11 @@
+{
+  "enableAllProjectMcpServers": true,
+  "enabledMcpjsonServers": [
+    "larkin-mcp"
+  ],
+  "permissions": {
+    "allow": [
+      "mcp__larkin-mcp__get_available_resources"
+    ]
+  }
+}

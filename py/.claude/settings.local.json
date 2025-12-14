@@ -1,0 +1,6 @@
+{
+  "enabledMcpjsonServers": [
+    "larkin-mcp"
+  ],
+  "enableAllProjectMcpServers": true
+}

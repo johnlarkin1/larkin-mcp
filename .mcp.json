@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "larkin-mcp": {
+      "command": "uv",
+      "args": ["--directory", "./py", "run", "mcp", "run", "src/main.py"]
+    }
+  }
+}
