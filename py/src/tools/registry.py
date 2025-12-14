@@ -1,6 +1,5 @@
 from src.constants import MCP_VERSION, MCP_WEBSITE_URL, RESOURCES_CATEGORIES, RESUME_DATE_VERSION
-from src.types.models import HealthCheckResponse, ResourceStatus
-from src.types.tool import Metadata
+from src.types.models import HealthCheckResponse, Metadata, ResourceStatus
 from src.util.resources import list_resources, load_resource, search_resources
 
 

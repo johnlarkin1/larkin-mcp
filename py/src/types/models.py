@@ -1,6 +1,10 @@
-"""Pydantic models for MCP tool inputs and outputs."""
-
 from pydantic import BaseModel, Field
+
+
+class Metadata(BaseModel):
+    mcp_version: str = Field(description="MCP server version")
+    mcp_website: str = Field(description="MCP server website")
+    resume_last_updated: str = Field(description="Date the resume was last updated")
 
 
 class ResourceStatus(BaseModel):
