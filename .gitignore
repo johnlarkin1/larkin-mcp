@@ -7,3 +7,8 @@ build/
 dist/
 wheels/
 *.egg-info
+
+# Generated resources (copied from resources/content/ by scripts/copy-resources.py)
+py/src/resources/content/
+tsx/src/resources/content/
+rs/src/resources/content/

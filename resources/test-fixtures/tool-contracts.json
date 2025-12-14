@@ -1,0 +1,191 @@
+{
+  "$schema": "../schemas/resource.schema.json",
+  "description": "Test fixtures defining expected behavior for MCP tools across all implementations",
+  "version": "1.0.0",
+  "tools": {
+    "get_metadata": {
+      "description": "Returns server metadata",
+      "input": null,
+      "expectedOutput": {
+        "type": "object",
+        "requiredFields": ["mcp_version", "mcp_website", "resume_last_updated"],
+        "assertions": [
+          "mcp_version matches semver pattern",
+          "mcp_website is a valid URL",
+          "resume_last_updated is a date in YYYY-MM-DD format"
+        ]
+      }
+    },
+    "get_resume": {
+      "description": "Returns full resume as markdown",
+      "input": null,
+      "expectedOutput": {
+        "type": "string",
+        "assertions": [
+          "Contains 'John Larkin'",
+          "Is valid markdown",
+          "Does not start with 'Resource ' (error prefix)"
+        ]
+      }
+    },
+    "get_bio": {
+      "description": "Returns extended biography",
+      "input": null,
+      "expectedOutput": {
+        "type": "string",
+        "assertions": [
+          "Is non-empty string",
+          "Does not start with 'Resource '"
+        ]
+      }
+    },
+    "get_work": {
+      "description": "Returns work experience details",
+      "input": null,
+      "expectedOutput": {
+        "type": "string",
+        "assertions": [
+          "Returns string (may be TODO placeholder)"
+        ]
+      }
+    },
+    "get_available_resources": {
+      "description": "Lists available resource identifiers",
+      "input": null,
+      "expectedOutput": {
+        "type": "array",
+        "assertions": [
+          "Contains 'resume'",
+          "Contains 'bio'",
+          "Contains 'skills'",
+          "Contains 'projects'",
+          "Contains 'contact'",
+          "All items are strings"
+        ]
+      }
+    },
+    "search_info": {
+      "description": "Searches resources for keyword matches",
+      "testCases": [
+        {
+          "input": {"query": "Python"},
+          "expectedOutput": {
+            "type": "string",
+            "assertions": [
+              "Contains match results or 'No matches found'",
+              "If matches found, contains '##' headers"
+            ]
+          }
+        },
+        {
+          "input": {"query": "xyznonexistent123"},
+          "expectedOutput": {
+            "type": "string",
+            "assertions": [
+              "Contains 'No matches found'"
+            ]
+          }
+        }
+      ]
+    },
+    "health_check": {
+      "description": "Returns server health status",
+      "input": null,
+      "expectedOutput": {
+        "type": "object",
+        "requiredFields": ["status", "version", "resources"],
+        "assertions": [
+          "status is 'healthy'",
+          "version matches semver pattern",
+          "resources is an object with resource names as keys"
+        ]
+      }
+    },
+    "get_section": {
+      "description": "Extracts a section from a resource",
+      "testCases": [
+        {
+          "input": {"resource": "resume", "section": "Education"},
+          "expectedOutput": {
+            "type": "string",
+            "assertions": [
+              "Contains section content or 'not found' message"
+            ]
+          }
+        },
+        {
+          "input": {"resource": "resume", "section": "NonexistentSection"},
+          "expectedOutput": {
+            "type": "string",
+            "assertions": [
+              "Contains 'not found' in message",
+              "Lists available sections"
+            ]
+          }
+        }
+      ]
+    },
+    "filter_projects_by_tech": {
+      "description": "Filters projects by technology",
+      "testCases": [
+        {
+          "input": {"tech": "Python"},
+          "expectedOutput": {
+            "type": "string",
+            "assertions": [
+              "Contains project listings or 'No projects found'"
+            ]
+          }
+        }
+      ]
+    },
+    "get_project_details": {
+      "description": "Returns structured project information",
+      "testCases": [
+        {
+          "input": {"project_name": "Scrollz"},
+          "expectedOutput": {
+            "type": "object",
+            "assertions": [
+              "Contains 'name' field",
+              "May contain 'url', 'tech_stack', 'summary' fields"
+            ]
+          }
+        },
+        {
+          "input": {"project_name": "NonexistentProject"},
+          "expectedOutput": {
+            "type": "object",
+            "assertions": [
+              "Contains 'error' field",
+              "May contain 'available_projects' array"
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "resources": {
+    "larkin://resume": {
+      "description": "Resume in markdown format",
+      "assertions": [
+        "Returns non-empty markdown string",
+        "Contains 'John Larkin'"
+      ]
+    },
+    "larkin://resume.pdf": {
+      "description": "Resume as PDF binary",
+      "mimeType": "application/pdf",
+      "assertions": [
+        "Returns binary PDF data",
+        "Starts with PDF magic bytes"
+      ]
+    },
+    "config://version": {
+      "description": "MCP version string",
+      "assertions": [
+        "Matches semver pattern"
+      ]
+    }
+  }
+}
