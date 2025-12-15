@@ -32,11 +32,30 @@ version = "0.1.0"
 description = "A MCP server for asking questions and getting context on John Larkin (johnlarkin1 GH profile, johnlarkin1.github.io)"
 readme = "README.md"
 requires-python = ">=3.11"
+license = "MIT"
+authors = [{ name = "John Larkin", email = "johnlarkin1@gmail.com" }]
+keywords = ["mcp", "model-context-protocol", "llm", "claude"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+]
 dependencies = [
     "httpx>=0.28.1",
     "mcp[cli]>=1.24.0",
     "pydantic>=2.0",
 ]
+
+[project.urls]
+Homepage = "https://github.com/johnlarkin1/larkin-mcp"
+Repository = "https://github.com/johnlarkin1/larkin-mcp"
+Documentation = "https://johnlarkin1.github.io"
+
+[project.scripts]
+larkin-mcp = "src.main:main"
 
 [dependency-groups]
 dev = [

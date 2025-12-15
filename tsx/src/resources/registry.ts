@@ -56,4 +56,11 @@ export function registerResources(server: McpServer): void {
       contents: [{ uri: "larkin://skills", text: content, mimeType: "text/markdown" }],
     };
   });
+
+  server.resource("larkin://work", "John Larkin's work experience and employment history", async () => {
+    const content = await loadResource("work");
+    return {
+      contents: [{ uri: "larkin://work", text: content, mimeType: "text/markdown" }],
+    };
+  });
 }

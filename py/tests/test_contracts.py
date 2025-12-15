@@ -120,7 +120,7 @@ class TestToolOutputContracts:
 
     def test_get_metadata_output(self, tool_contracts: dict):
         """Verify get_metadata output matches contract."""
-        from src.types.tool import Metadata
+        from src.types.models import Metadata
 
         result: Metadata = {
             "mcp_version": MCP_VERSION,

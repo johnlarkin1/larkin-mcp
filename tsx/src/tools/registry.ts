@@ -1,7 +1,7 @@
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { z } from "zod";
-import { MCP_VERSION, MCP_WEBSITE_URL, RESUME_DATE_VERSION } from "../constants.js";
-import type { Metadata } from "../types/tool.js";
+import { MCP_VERSION, MCP_WEBSITE_URL, RESUME_DATE_VERSION, RESOURCES_CATEGORIES } from "../constants.js";
+import type { Metadata, HealthCheckResponse, ResourceStatus } from "../types/tool.js";
 import { listResources, loadResource, searchResources } from "../util/resources.js";
 
 export function registerTools(server: McpServer): void {
@@ -86,4 +86,34 @@ export function registerTools(server: McpServer): void {
       };
     }
   );
+
+  server.tool("get_work", "Return detailed work experience and employment history.", {}, async () => {
+    const content = await loadResource("work");
+    return {
+      content: [{ type: "text", text: content }],
+    };
+  });
+
+  server.tool("health_check", "Return server health status and resource availability.", {}, async () => {
+    const resourcesStatus: Record<string, ResourceStatus> = {};
+
+    for (const resource of RESOURCES_CATEGORIES) {
+      const content = await loadResource(resource);
+      const isAvailable = !content.startsWith("Resource '") && !content.startsWith("Error");
+      resourcesStatus[resource] = {
+        available: isAvailable,
+        size_bytes: isAvailable ? Buffer.byteLength(content, "utf-8") : 0,
+      };
+    }
+
+    const response: HealthCheckResponse = {
+      status: "healthy",
+      version: MCP_VERSION,
+      resources: resourcesStatus,
+    };
+
+    return {
+      content: [{ type: "text", text: JSON.stringify(response, null, 2) }],
+    };
+  });
 }
