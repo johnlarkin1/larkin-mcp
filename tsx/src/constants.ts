@@ -13,7 +13,7 @@ export const MCP_WEBSITE_URL = "https://johnlarkin1.github.io/2025/larkin-mcp";
 // Resources
 const __dirname = dirname(fileURLToPath(import.meta.url));
 export const RESOURCES_DIR = resolve(__dirname, "./resources/content");
-export const RESOURCES_CATEGORIES = ["resume", "bio", "projects", "contact", "skills", "work"];
+export const RESOURCES_CATEGORIES = ["resume", "bio", "projects", "contact", "skills", "work", "tennis"];
 
 // Resume
 export const RESUME_DATE_VERSION = "2025-12-14";

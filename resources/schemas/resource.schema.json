@@ -68,7 +68,7 @@
       "description": "List of valid resource category names",
       "items": {
         "type": "string",
-        "enum": ["resume", "bio", "projects", "contact", "skills", "work"]
+        "enum": ["resume", "bio", "projects", "contact", "skills", "work", "tennis"]
       }
     }
   }

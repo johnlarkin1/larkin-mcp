@@ -83,6 +83,18 @@
         ]
       }
     },
+    "get_tennis_info": {
+      "description": "Returns collegiate tennis career information",
+      "input": null,
+      "expectedOutput": {
+        "type": "string",
+        "assertions": [
+          "Is non-empty string",
+          "Does not start with 'Resource '",
+          "Contains 'Swarthmore' or tennis-related content"
+        ]
+      }
+    },
     "get_available_resources": {
       "description": "Lists available resource identifiers",
       "input": null,
@@ -95,6 +107,7 @@
           "Contains 'projects'",
           "Contains 'contact'",
           "Contains 'work'",
+          "Contains 'tennis'",
           "All items are strings"
         ]
       }
@@ -194,6 +207,13 @@
       "description": "Work experience in markdown",
       "assertions": [
         "Returns non-empty string"
+      ]
+    },
+    "larkin://tennis": {
+      "description": "Collegiate tennis career information in markdown",
+      "assertions": [
+        "Returns non-empty string",
+        "Contains tennis match records or awards"
       ]
     }
   }

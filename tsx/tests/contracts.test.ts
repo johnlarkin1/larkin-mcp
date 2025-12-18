@@ -19,6 +19,7 @@ const TYPESCRIPT_TOOLS = new Set([
   "get_projects",
   "get_skills",
   "get_work",
+  "get_tennis_info",
   "get_available_resources",
   "search_info",
   "health_check",
@@ -35,6 +36,7 @@ const TYPESCRIPT_RESOURCES = new Set([
   "larkin://contact",
   "larkin://skills",
   "larkin://work",
+  "larkin://tennis",
 ]);
 
 describe("Tool Contract Sync", () => {
@@ -231,6 +233,12 @@ describe("Resource Output Contracts", () => {
 
   test("larkin://work returns non-empty content", async () => {
     const content = await loadResource("work");
+    expect(content).toBeTruthy();
+    expect(content).not.toMatch(/^Resource '/);
+  });
+
+  test("larkin://tennis returns non-empty content", async () => {
+    const content = await loadResource("tennis");
     expect(content).toBeTruthy();
     expect(content).not.toMatch(/^Resource '/);
   });

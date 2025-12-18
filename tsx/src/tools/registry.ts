@@ -94,6 +94,13 @@ export function registerTools(server: McpServer): void {
     };
   });
 
+  server.tool("get_tennis_info", "Return collegiate tennis career information including awards and match records.", {}, async () => {
+    const content = await loadResource("tennis");
+    return {
+      content: [{ type: "text", text: content }],
+    };
+  });
+
   server.tool("health_check", "Return server health status and resource availability.", {}, async () => {
     const resourcesStatus: Record<string, ResourceStatus> = {};
 
