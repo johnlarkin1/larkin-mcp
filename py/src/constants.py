@@ -12,7 +12,7 @@ MCP_VERSION = "0.1.0"
 
 # Resources
 RESOURCES_DIR = Path(__file__).parent / "resources" / "content"
-RESOURCES_CATEGORIES = ["resume", "bio", "projects", "contact", "skills", "work"]
+RESOURCES_CATEGORIES = ["resume", "bio", "projects", "contact", "skills", "work", "tennis"]
 
 # Resume
 RESUME_DATE_VERSION = "2025-12-14"

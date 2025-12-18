@@ -10,7 +10,10 @@
       "mcp__larkin-mcp__get_resume",
       "Bash(tree:*)",
       "WebSearch",
-      "WebFetch(domain:github.com)"
+      "WebFetch(domain:github.com)",
+      "mcp__larkin-mcp-py__get_work",
+      "mcp__larkin-mcp-py__get_projects",
+      "mcp__larkin-mcp-py__get_resume"
     ]
   },
   "enableAllProjectMcpServers": true,

@@ -31,6 +31,7 @@ class TestToolContractSync:
         "get_projects",
         "get_skills",
         "get_work",
+        "get_tennis_info",
         "get_available_resources",
         "search_info",
         "health_check",
@@ -74,6 +75,7 @@ class TestResourceContractSync:
         "larkin://contact",
         "larkin://skills",
         "larkin://work",
+        "larkin://tennis",
     }
 
     def test_all_contract_resources_implemented(self, tool_contracts: dict):
@@ -279,5 +281,11 @@ class TestResourceOutputContracts:
     def test_larkin_work_resource(self, tool_contracts: dict):
         """Verify larkin://work returns non-empty content."""
         content = load_resource("work")
+        assert content, "Should return non-empty string"
+        assert not content.startswith("Resource '"), "Should not be error"
+
+    def test_larkin_tennis_resource(self, tool_contracts: dict):
+        """Verify larkin://tennis returns non-empty content."""
+        content = load_resource("tennis")
         assert content, "Should return non-empty string"
         assert not content.startswith("Resource '"), "Should not be error"

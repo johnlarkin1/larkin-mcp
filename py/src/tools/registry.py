@@ -46,6 +46,11 @@ def register_tools(mcp):
         return load_resource("work")
 
     @mcp.tool()
+    def get_tennis_info() -> str:
+        """Return collegiate tennis career information including awards and match records."""
+        return load_resource("tennis")
+
+    @mcp.tool()
     def get_available_resources() -> list[str]:
         """Return identifiers for all available content resources."""
         return list_resources()

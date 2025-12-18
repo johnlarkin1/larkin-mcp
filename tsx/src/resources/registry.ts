@@ -63,4 +63,11 @@ export function registerResources(server: McpServer): void {
       contents: [{ uri: "larkin://work", text: content, mimeType: "text/markdown" }],
     };
   });
+
+  server.resource("larkin://tennis", "John Larkin's collegiate tennis career information", async () => {
+    const content = await loadResource("tennis");
+    return {
+      contents: [{ uri: "larkin://tennis", text: content, mimeType: "text/markdown" }],
+    };
+  });
 }

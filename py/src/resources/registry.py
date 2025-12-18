@@ -39,3 +39,7 @@ def register_resources(mcp):
     @mcp.resource("larkin://work")
     def get_work() -> str:
         return load_resource("work")
+
+    @mcp.resource("larkin://tennis")
+    def get_tennis_info() -> str:
+        return load_resource("tennis")
