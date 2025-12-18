@@ -7,11 +7,12 @@
       "mcp__larkin-mcp__get_projects",
       "mcp__larkin-mcp__get_bio",
       "mcp__larkin-mcp__get_skills",
-      "mcp__larkin-mcp__get_resume"
+      "mcp__larkin-mcp__get_resume",
+      "Bash(tree:*)",
+      "WebSearch",
+      "WebFetch(domain:github.com)"
     ]
   },
   "enableAllProjectMcpServers": true,
-  "enabledMcpjsonServers": [
-    "larkin-mcp"
-  ]
+  "enabledMcpjsonServers": ["larkin-mcp"]
 }

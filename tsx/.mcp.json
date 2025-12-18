@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "larkin-mcp-ts": {
+      "command": "bun",
+      "args": ["run", "src/index.ts"]
+    }
+  }
+}

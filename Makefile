@@ -5,6 +5,9 @@
         format format-py format-ts format-rs \
         check check-py check-ts check-rs \
         test test-py test-ts test-rs \
+        build build-py build-ts \
+        publish publish-py publish-ts publish-py-test publish-ts-dry \
+        release release-dry \
         clean clean-py clean-ts clean-rs
 
 # Default target
@@ -37,6 +40,20 @@ help:
 	@echo "  make test-py        - Run Python tests (pytest)"
 	@echo "  make test-ts        - Run TypeScript tests (bun test)"
 	@echo "  make test-rs        - Run Rust tests (cargo test)"
+	@echo ""
+	@echo "Build Commands:"
+	@echo "  make build          - Build all packages"
+	@echo "  make build-py       - Build Python package"
+	@echo "  make build-ts       - Build TypeScript package"
+	@echo ""
+	@echo "Publish Commands:"
+	@echo "  make publish        - Publish all packages"
+	@echo "  make publish-py     - Publish Python to PyPI"
+	@echo "  make publish-ts     - Publish TypeScript to npm"
+	@echo "  make publish-py-test - Publish Python to TestPyPI"
+	@echo "  make publish-ts-dry - Dry run npm publish"
+	@echo "  make release        - Full release workflow (tests, lint, publish, tag)"
+	@echo "  make release-dry    - Dry run of release workflow"
 	@echo ""
 	@echo "Clean Commands:"
 	@echo "  make clean          - Clean all build artifacts"
@@ -94,7 +111,7 @@ dev-py:
 
 dev-ts:
 	@echo "Running TypeScript MCP server in dev mode..."
-	cd tsx && bunx @anthropic/mcp-inspector bun run src/index.ts
+	cd tsx && bunx @modelcontextprotocol/inspector bun run src/index.ts
 
 dev-rs:
 	@echo "Running Rust MCP server in dev mode..."
@@ -209,6 +226,50 @@ test-rs:
 	else \
 		echo "No Rust project found, skipping..."; \
 	fi
+
+# =============================================================================
+# Build Commands
+# =============================================================================
+
+build: build-py build-ts
+	@echo "All builds complete!"
+
+build-py:
+	@echo "Building Python package..."
+	cd py && uv build
+
+build-ts:
+	@echo "Building TypeScript package..."
+	cd tsx && bun run build
+
+# =============================================================================
+# Publish Commands
+# =============================================================================
+
+publish: publish-py publish-ts
+	@echo "All packages published!"
+
+publish-py: build-py
+	@echo "Publishing Python package to PyPI..."
+	cd py && uv publish
+
+publish-ts: build-ts
+	@echo "Publishing TypeScript package to npm..."
+	cd tsx && npm publish
+
+publish-py-test: build-py
+	@echo "Publishing Python package to TestPyPI..."
+	cd py && uv publish --publish-url https://test.pypi.org/legacy/
+
+publish-ts-dry: build-ts
+	@echo "Dry run: npm publish..."
+	cd tsx && npm publish --dry-run
+
+release:
+	@./scripts/publish.sh
+
+release-dry:
+	@./scripts/publish.sh --dry-run
 
 # =============================================================================
 # Clean Commands
