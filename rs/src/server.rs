@@ -1,39 +1,28 @@
-//! following this example: https://modelcontextprotocol.io/docs/develop/build-server#rust
-
 use rmcp::{
     ErrorData as McpError,
     handler::server::{tool::ToolRouter, wrapper::Parameters},
     model::{CallToolResult, Content, ServerCapabilities, ServerInfo},
     tool, tool_handler, tool_router,
 };
-use schemars::JsonSchema;
-use serde::{Deserialize, Serialize};
 
 use crate::constants::{MCP_INSTRUCTIONS, MCP_VERSION, MCP_WEBSITE_URL, RESUME_DATE_VERSION};
 use crate::resources::{self, RESOURCE_CATEGORIES};
+use crate::schema::{HealthCheckResponse, Metadata, SearchQuery};
 
+/// So this is really for my own learning, but the approach with rmcp 
+/// is that these macros are pseuoequivalent to the Python decorators
+/// tool_router. Per the docs:
+/// "The #[tool_router] macro automatically generates the routing logic, 
+/// and the #[tool] attribute marks methods as MCP tools."
 #[derive(Clone)]
 pub struct LarkinServer {
     tool_router: ToolRouter<Self>,
 }
 
-#[derive(Debug, Serialize)]
-pub struct Metadata {
-    pub mcp_version: &'static str,
-    pub mcp_website: &'static str,
-    pub resume_last_updated: &'static str,
-}
-
-#[derive(Debug, Serialize)]
-pub struct HealthCheckResponse {
-    pub status: &'static str,
-    pub version: &'static str,
-    pub available_resources: Vec<&'static str>,
-}
-
-#[derive(Debug, Deserialize, JsonSchema)]
-pub struct SearchQuery {
-    pub query: String,
+impl Default for LarkinServer {
+    fn default() -> Self {
+        Self::new()
+    }
 }
 
 #[tool_router]
@@ -95,6 +84,13 @@ impl LarkinServer {
         )]))
     }
 
+    #[tool(description = "Return collegiate tennis career information including awards and match records.")]
+    async fn get_tennis_info(&self) -> Result<CallToolResult, McpError> {
+        Ok(CallToolResult::success(vec![Content::text(
+            resources::TENNIS,
+        )]))
+    }
+
     #[tool(description = "Return identifiers for all available content resources.")]
     async fn get_available_resources(&self) -> Result<CallToolResult, McpError> {
         let resources: Vec<String> = RESOURCE_CATEGORIES.iter().map(|s| s.to_string()).collect();
@@ -138,12 +134,6 @@ impl LarkinServer {
         };
         let json = serde_json::to_string_pretty(&response).unwrap_or_default();
         Ok(CallToolResult::success(vec![Content::text(json)]))
-    }
-}
-
-impl Default for LarkinServer {
-    fn default() -> Self {
-        Self::new()
     }
 }
 

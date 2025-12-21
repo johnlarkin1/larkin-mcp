@@ -1,4 +1,4 @@
-// pub const MCP_NAME: &str = "larkin-mcp";
+// pub const MCP_NAME: &str = "larkin-mcp"; // this was flagging the deadcode
 pub const MCP_INSTRUCTIONS: &str = "This server provides information about John Larkin \
     (github profile: johnlarkin1, site: johnlarkin1.github.io) and \
     allows helpful tooling for more info";
