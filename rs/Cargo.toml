@@ -3,8 +3,13 @@ name = "larkin-mcp"
 version = "0.1.0"
 edition = "2024"
 description = "MCP server providing information about John Larkin"
-authors = ["John Larkin"]
+authors = ["John Larkin <john@johnjlarkin.com>"]
 license = "MIT"
+repository = "https://github.com/johnlarkin1/larkin-mcp"
+homepage = "https://github.com/johnlarkin1/larkin-mcp"
+readme = "../README.md"
+keywords = ["mcp", "model-context-protocol", "llm", "claude", "ai"]
+categories = ["command-line-utilities", "development-tools"]
 
 [[bin]]
 name = "larkin-mcp"

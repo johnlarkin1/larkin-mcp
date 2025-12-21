@@ -1,0 +1,40 @@
+# John Larkin - Bio
+
+## Summary
+I'm a Staff Software Engineer based in the NYC area with a strong interest in engineering, math, and tennis.
+
+## Background
+
+### [Cincinnati](https://en.wikipedia.org/wiki/Cincinnati) 
+I'm proudly from [Cincinnati](https://en.wikipedia.org/wiki/Cincinnati), Ohio (also means that I'm sadly a [Bengals](https://www.bengals.com/) fan). I have a ton of very deep and fond memories about Cincinnati, and I'm hoping there's no shortage of those in the future. Feel free to ask me about [Skyline Chili](https://www.skylinechili.com/), [Graeter's](https://www.graeters.com/), or anything that the beautiful city of Cincinnati has to offer. 
+
+### [Swarthmore](https://www.swarthmore.edu/)
+I went to [Swarthmore College](https://www.swarthmore.edu/) from 2013-2017, where I was lucky enough to play tennis. I graduated with a Bachelor's of Science in Engineering (focused in Computer Engineering), and a minor in Chemistry. I was undecided about pre-med for most of freshman year, but I kind of figured the timeline was too long for me. The rest of my family are all doctors though, so there's definitely a complex there if you want to pry. 
+
+Swarthmore College was a fantastic experience (for me), but it's certainly not for everyone. Sincerely, I'd love to talk to you if you're considering going there. I was a tour guide for several years while I was in undergrad so can turn on "pitch mode" if you want as well. It was an incredibly fulfilling couple of years - the academics were brutal, my peers were some of the smartest people I have had the chance to work / study with, my best friends were cemented there, and the tennis team provided an incredible sense of community and adventures. I'm lucky enough to see most of those guys in New York (where I live as of 2025). I still cannot thank my professors and peers enough for some of the memories there.
+
+### Overland 
+After graduation, I actually didn't immediately start work. I joined [Overland Summers](https://overlandsummers.com/) as a trip leader. This was truly one of the most rewarding summers of my life. I led the Sierra Adventure trip, which consisted of three trips that were each two weeks long. We had 10-12 5th and 6th graders that my co-counsellor and I were responsible for. We drove a huge 15 passenger van around the Tahoe and High Sierra area, took the kids on challenging hikes, helped them learn some survival skills (again... emphasis on some this was still pretty plush), went rafting on the American River, scared off bears, had to clean up an egregious amount of puke, dealt with night terrors and other complex group dynamics, etc. We balanced the budget, managed spend, audibled on various routes given trail conditions, and much more. It was an incredible series of adventures. I am incredible fond of the program, still very close with my co-counselor and reminisce often about those times. If you want to pick my brain about Overland or hear gross details about the trip or are curious about good hikes in the Tahoe area, again, feel free to reach out.
+
+### Chicago
+After wrapping up at Overland, I moved to Chicago where I started work as a software engineer at [Belvedere Trading](https://www.belvederetrading.com/). I worked specifically on "Team Black" as it was known at the time, under excellent leadership and very smart peers. You can see more about that in the `work.md` resource. Chicago was a fantastic time and the three years I spent there went very quickly. I lived with one of my best friends, soaked up a ton Chicago had to offer, learned a ton, worked hard, and grew quite a bit.
+
+### Cincinnati (round 2)
+At some point, I left Belvedere. I'm more than happy to discuss why I left, but I ultimately felt like the engineers were sitting as second class citizens and I wanted to more directly make an impact. Part of this was probably being on a post-execution team as well. I know Belvedere has also grown and developed. Many of my very close friends were still there, and absolutely crushing it. 
+
+Regardless, I left and was working for a company called [Ab Initio](https://www.abinitio.com/en/). It's an interesting and unique company. I believe around 40% of the staff have PhDs from various scientific and quantitative fields. Once again, I still have numerous friends at the company that I chat with fondly. The cadence of work and details of what I did can be referenced with the `work.md` resource, but the premise of the job was that I was a "Field Consultant" or "Field Engineer". I was deployed to various customer sites and would work with customers directly on their issues onsite. The way this logistically worked is that I was based out of Chicago, but would fly to Boston (HQ was there), or would fly to various places in NJ or Charlotte or other random cities. It was a lot of fun and yeah, I learned a lot about various enterprise software tech stacks, F500 companies, and more. 
+
+The silver lining (I suppose) was that they didn't really care where I lived. So when the pandemic broke out and we rapidly scrambled to transition to remote work, I was able to move back home to [Cincinnati](https://en.wikipedia.org/wiki/Cincinnati) and work from there. Which was fantastic to be in Cincinnati (will probably be the cheapest rent I ever pay)! However, working remote like that was... not fun and yeah just felt lacking in terms of fire and focus and upwards trajectory. So when [Dropbox](https://www.dropbox.com/) reached out, and I hadn't yet worked for a canonical big tech company (even though it's not FANG or whatever the acronym is at this point in time), I thought it would be a good opportunity. They were touting Virtual First, great benefits and further flexibility on location. So I took the opportunity and did not look back.
+
+### San Francisco
+Part of the reason I moved back to Cincinnati was personal, but after a bit of working at [Dropbox](https://www.dropbox.com/) (and things more or less imploding personally for me), I decided to move to San Francisco. My best friend from pre-K was out there, and the West Coast was calling - glorious bike rides, surfing, new friends and adventures, and a bit of a fresh start seemed like the medicine I needed. Plus while I liked working remote, I was excited to be close to the DBX HQ and hopefully have more peers and friends close by.
+
+SF was a pretty short stint for me - and I honestly wish I could have done another year or two there (especially now with the AI boom). That being said, it was a solid 13mo (?) where I got to reconnect with old Swatties that were out there, learn a ton from peers at [Dropbox](https://www.dropbox.com/), rip [Hawk Hill](https://www.parksconservancy.org/parks/hawk-hill), explore [Marin](https://en.wikipedia.org/wiki/Marin_County,_California), hike, live right across from Baker Beach, make some new incredible friends, and more. 
+
+### New York
+At the end of my time in SF, one of my best friends was moving to NYC and said that I should come as well, and live with him and another friend. I was hesitant but the vast majority of my friends were in NYC and also I was single and given the Midwest blood... felt like I was already lightyears behind. Other factors too but I eventually moved to NYC and started living in Chelsea. 
+
+In terms of living setup, my two roommates were some of the best roommates I could ask for. They made the transition to NYC as fun as possible and instantly brought me into the fold. I'm extremely appreciative and thankful for them as friends. 
+
+Since then, I've been in NYC three years at the time of writing. I could write for hours about the various adventures, growth and development, pains, and adventures that I've had over those three years. However, chalk it up to whatever context window you're working with, but I'm not going to get into that. For now, we can summarize by saying I have left [Dropbox](https://www.dropbox.com/) and joined a startup [Mojo](https://www.mojo.com/) and that has been an interesting ride. I have loved New York, and while ultimately, I miss the Midwest, I'm happy that NYC is my home for the foreseeable future. 
+

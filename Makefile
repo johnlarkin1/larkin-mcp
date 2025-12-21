@@ -5,8 +5,8 @@
         format format-py format-ts format-rs \
         check check-py check-ts check-rs \
         test test-py test-ts test-rs \
-        build build-py build-ts \
-        publish publish-py publish-ts publish-py-test publish-ts-dry \
+        build build-py build-ts build-rs \
+        publish publish-py publish-ts publish-rs publish-py-dry publish-ts-dry publish-rs-dry \
         release release-dry \
         clean clean-py clean-ts clean-rs
 
@@ -45,13 +45,16 @@ help:
 	@echo "  make build          - Build all packages"
 	@echo "  make build-py       - Build Python package"
 	@echo "  make build-ts       - Build TypeScript package"
+	@echo "  make build-rs       - Build Rust package (release)"
 	@echo ""
 	@echo "Publish Commands:"
 	@echo "  make publish        - Publish all packages"
 	@echo "  make publish-py     - Publish Python to PyPI"
 	@echo "  make publish-ts     - Publish TypeScript to npm"
-	@echo "  make publish-py-test - Publish Python to TestPyPI"
+	@echo "  make publish-rs     - Publish Rust to crates.io"
+	@echo "  make publish-py-dry - Publish Python to TestPyPI"
 	@echo "  make publish-ts-dry - Dry run npm publish"
+	@echo "  make publish-rs-dry - Dry run cargo publish"
 	@echo "  make release        - Full release workflow (tests, lint, publish, tag)"
 	@echo "  make release-dry    - Dry run of release workflow"
 	@echo ""
@@ -231,7 +234,7 @@ test-rs:
 # Build Commands
 # =============================================================================
 
-build: build-py build-ts
+build: build-py build-ts build-rs
 	@echo "All builds complete!"
 
 build-py:
@@ -242,28 +245,40 @@ build-ts:
 	@echo "Building TypeScript package..."
 	cd tsx && bun run build
 
+build-rs:
+	@echo "Building Rust package (release)..."
+	cd rs && cargo build --release
+
 # =============================================================================
 # Publish Commands
 # =============================================================================
 
-publish: publish-py publish-ts
+publish: publish-py publish-ts publish-rs
 	@echo "All packages published!"
 
 publish-py: build-py
 	@echo "Publishing Python package to PyPI..."
-	cd py && uv publish
+	cd py && uv publish $(if $(PYPI_TOKEN),--token $(PYPI_TOKEN),)
 
 publish-ts: build-ts
 	@echo "Publishing TypeScript package to npm..."
 	cd tsx && npm publish
 
-publish-py-test: build-py
+publish-rs: build-rs
+	@echo "Publishing Rust package to crates.io..."
+	cd rs && cargo publish
+
+publish-py-dry: build-py
 	@echo "Publishing Python package to TestPyPI..."
-	cd py && uv publish --publish-url https://test.pypi.org/legacy/
+	cd py && uv publish --publish-url https://test.pypi.org/legacy/ $(if $(TEST_PYPI_TOKEN),--token $(TEST_PYPI_TOKEN),)
 
 publish-ts-dry: build-ts
 	@echo "Dry run: npm publish..."
 	cd tsx && npm publish --dry-run
+
+publish-rs-dry:
+	@echo "Dry run: cargo publish..."
+	cd rs && cargo publish --dry-run
 
 release:
 	@./scripts/publish.sh
