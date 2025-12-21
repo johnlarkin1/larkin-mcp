@@ -1,10 +1,5 @@
 CLAUDE.md
 
-# these get copied to each during build, we ignore them but they'll be there
-py/src/resources/content/
-tsx/src/resources/content/
-rs/src/resources/content/
-
 # py
 **/*/__pycache__/
 __pycache__/

@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "description": "A MCP server for asking questions and getting context on John Larkin (johnlarkin1 GH profile, johnlarkin1.github.io)",
   "type": "module",
-  "author": "John Larkin <johnlarkin1@gmail.com>",
+  "author": "John Larkin <john@johnjlarkin.com>",
   "license": "MIT",
   "repository": {
     "type": "git",

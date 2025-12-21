@@ -33,7 +33,7 @@ description = "A MCP server for asking questions and getting context on John Lar
 readme = "README.md"
 requires-python = ">=3.11"
 license = "MIT"
-authors = [{ name = "John Larkin", email = "johnlarkin1@gmail.com" }]
+authors = [{ name = "John Larkin", email = "john@johnjlarkin.com" }]
 keywords = ["mcp", "model-context-protocol", "llm", "claude"]
 classifiers = [
     "Development Status :: 4 - Beta",
