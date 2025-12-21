@@ -1,3 +1,7 @@
+<img width="1920" height="1080" alt="hero" src="https://github.com/user-attachments/assets/5d911d4e-9d97-441f-b29a-03a16ce824d0" />
+
+For more info, check out the blog post [here](https://johnlarkin1.github.io/2025/larkin-mcp/) or here: https://johnlarkin1.github.io/2025/larkin-mcp/
+
 # larkin-mcp
 
 This is going to be a MCP connector that runs it's tools locally over stdio and makes no external connections. The goal is that you'll be able to download it, use Claude Desktop / ChatGPT / Claude Code and integrate and ask questions.... about me. So a smidge egotistical I suppose, but I want to get some more reps in with doing this.
