@@ -6,7 +6,11 @@
     },
     "larkin-mcp-ts": {
       "command": "bun",
-      "args": ["--cwd", "./tsx", "run", "src/index.ts"]
+      "args": ["run", "--cwd", "./tsx", "src/index.ts"]
+    },
+    "larkin-mcp-rs": {
+      "command": "cargo",
+      "args": ["run", "--manifest-path", "./rs/Cargo.toml", "--release", "-q"]
     }
   }
 }
