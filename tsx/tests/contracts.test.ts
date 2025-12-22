@@ -1,12 +1,27 @@
 import { describe, expect, test } from "bun:test";
 import { readFileSync } from "fs";
 import { resolve } from "path";
-import { MCP_VERSION, RESOURCES_CATEGORIES, RESUME_DATE_VERSION, RESOURCES_DIR } from "../src/constants";
-import { loadResource, listResources, searchResources } from "../src/util/resources";
+import {
+  MCP_VERSION,
+  RESOURCES_CATEGORIES,
+  RESUME_DATE_VERSION,
+  RESOURCES_DIR,
+} from "../src/constants";
+import {
+  loadResource,
+  listResources,
+  searchResources,
+} from "../src/util/resources";
 
 // Load test fixtures
-const contractsPath = resolve(__dirname, "../../resources/test-fixtures/tool-contracts.json");
-const schemaPath = resolve(__dirname, "../../resources/schemas/resource.schema.json");
+const contractsPath = resolve(
+  __dirname,
+  "../../resources/test-fixtures/tool-contracts.json",
+);
+const schemaPath = resolve(
+  __dirname,
+  "../../resources/schemas/resource.schema.json",
+);
 const toolContracts = JSON.parse(readFileSync(contractsPath, "utf-8"));
 const resourceSchema = JSON.parse(readFileSync(schemaPath, "utf-8"));
 
@@ -61,13 +76,17 @@ describe("Tool Contract Sync", () => {
 describe("Resource Contract Sync", () => {
   test("all contract resources implemented", () => {
     const contractResources = new Set(Object.keys(toolContracts.resources));
-    const missing = [...contractResources].filter((r) => !TYPESCRIPT_RESOURCES.has(r));
+    const missing = [...contractResources].filter(
+      (r) => !TYPESCRIPT_RESOURCES.has(r),
+    );
     expect(missing).toEqual([]);
   });
 
   test("no extra resources in TypeScript", () => {
     const contractResources = new Set(Object.keys(toolContracts.resources));
-    const extra = [...TYPESCRIPT_RESOURCES].filter((r) => !contractResources.has(r));
+    const extra = [...TYPESCRIPT_RESOURCES].filter(
+      (r) => !contractResources.has(r),
+    );
     expect(extra).toEqual([]);
   });
 
@@ -79,7 +98,9 @@ describe("Resource Contract Sync", () => {
 
 describe("Resource Categories Sync", () => {
   test("categories match schema", () => {
-    const schemaCategories = new Set(resourceSchema.properties.resourceCategories.items.enum);
+    const schemaCategories = new Set(
+      resourceSchema.properties.resourceCategories.items.enum,
+    );
     const tsCategories = new Set(RESOURCES_CATEGORIES);
     expect(tsCategories).toEqual(schemaCategories);
   });
@@ -131,7 +152,9 @@ describe("Tool Output Contracts", () => {
     if (Object.keys(results).length > 0) {
       const output: string[] = [];
       for (const [resource, lines] of Object.entries(results)) {
-        output.push(`## ${resource.charAt(0).toUpperCase() + resource.slice(1)}`);
+        output.push(
+          `## ${resource.charAt(0).toUpperCase() + resource.slice(1)}`,
+        );
         for (const line of (lines as string[]).slice(0, 5)) {
           output.push(`  - ${line.trim()}`);
         }
@@ -147,11 +170,15 @@ describe("Tool Output Contracts", () => {
   });
 
   test("health_check output", async () => {
-    const resourcesStatus: Record<string, { available: boolean; size_bytes: number }> = {};
+    const resourcesStatus: Record<
+      string,
+      { available: boolean; size_bytes: number }
+    > = {};
 
     for (const resource of RESOURCES_CATEGORIES) {
       const content = await loadResource(resource);
-      const isAvailable = !content.startsWith("Resource '") && !content.startsWith("Error");
+      const isAvailable =
+        !content.startsWith("Resource '") && !content.startsWith("Error");
       resourcesStatus[resource] = {
         available: isAvailable,
         size_bytes: isAvailable ? Buffer.byteLength(content, "utf-8") : 0,
@@ -171,7 +198,8 @@ describe("Tool Output Contracts", () => {
     }
 
     // Check status enum
-    const schemaStatuses = resourceSchema.definitions.healthCheck.properties.status.enum;
+    const schemaStatuses =
+      resourceSchema.definitions.healthCheck.properties.status.enum;
     expect(schemaStatuses).toContain(result.status);
 
     // Check version semver

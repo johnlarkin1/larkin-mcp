@@ -4,12 +4,12 @@ mod schema;
 mod server;
 
 use anyhow::Result;
-use rmcp::{transport::stdio, ServiceExt};
+use rmcp::{ServiceExt, transport::stdio};
 
 use server::LarkinServer;
 
 /// Ok so again, another note for myself.
-/// 
+///
 /// ServiceExt is how `.serve()` is implemented. From the underlying code:
 /// ```rust
 /// pub trait ServiceExt<R: ServiceRole>: Service<R> + Sized {
@@ -29,13 +29,13 @@ use server::LarkinServer;
 ///    }
 /// ```
 /// If you don't include `ServiceExt`, then you won't get .serve for free
-/// 
+///
 /// Basically, what's happening is when you call .serve then Rust will check all the traits in scope
 /// And see if there is one that implements it for your server.
 /// So when we import ServiceExt, Rust will see that LarkinServer implements it and
 /// add the .serve method to the server. More explicitly, Rust will see that LarkinServer implements
 /// ServerHandler and so it knows ServiceExt can be applied.
-/// 
+///
 /// Finally, the service.waiting().await is just saying keep the server alive until a disconnect.
 #[tokio::main]
 async fn main() -> Result<()> {

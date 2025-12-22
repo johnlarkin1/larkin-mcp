@@ -27,6 +27,6 @@ export const RESOURCES_CATEGORIES = [
 export const RESUME_DATE_VERSION = "2025-12-14";
 export const RESUME_PDF_PATH = resolve(
   RESOURCES_DIR,
-  "resume/larkin_resume.pdf"
+  "resume/larkin_resume.pdf",
 );
 export const RESUME_MD_PATH = resolve(RESOURCES_DIR, "resume/larkin_resume.md");

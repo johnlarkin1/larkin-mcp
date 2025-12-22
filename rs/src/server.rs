@@ -9,10 +9,10 @@ use crate::constants::{MCP_INSTRUCTIONS, MCP_VERSION, MCP_WEBSITE_URL, RESUME_DA
 use crate::resources::{self, RESOURCE_CATEGORIES};
 use crate::schema::{HealthCheckResponse, Metadata, SearchQuery};
 
-/// So this is really for my own learning, but the approach with rmcp 
+/// So this is really for my own learning, but the approach with rmcp
 /// is that these macros are pseuoequivalent to the Python decorators
 /// tool_router. Per the docs:
-/// "The #[tool_router] macro automatically generates the routing logic, 
+/// "The #[tool_router] macro automatically generates the routing logic,
 /// and the #[tool] attribute marks methods as MCP tools."
 #[derive(Clone)]
 pub struct LarkinServer {
@@ -84,7 +84,9 @@ impl LarkinServer {
         )]))
     }
 
-    #[tool(description = "Return collegiate tennis career information including awards and match records.")]
+    #[tool(
+        description = "Return collegiate tennis career information including awards and match records."
+    )]
     async fn get_tennis_info(&self) -> Result<CallToolResult, McpError> {
         Ok(CallToolResult::success(vec![Content::text(
             resources::TENNIS,

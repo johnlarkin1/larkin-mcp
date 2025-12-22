@@ -6,7 +6,11 @@ export function registerPrompts(server: McpServer): void {
     "summarize_for_role",
     "Generate a tailored summary of John's background for a specific job role.",
     {
-      role: z.string().describe("The job title or role to summarize for (e.g., 'Staff Engineer', 'Engineering Manager')"),
+      role: z
+        .string()
+        .describe(
+          "The job title or role to summarize for (e.g., 'Staff Engineer', 'Engineering Manager')",
+        ),
     },
     async ({ role }) => {
       return {
@@ -35,14 +39,16 @@ Keep the summary professional and tailored specifically for a ${role} position.`
           },
         ],
       };
-    }
+    },
   );
 
   server.prompt(
     "compare_to_job",
     "Analyze how John's background aligns with a specific job description.",
     {
-      job_description: z.string().describe("The full job description text to compare against"),
+      job_description: z
+        .string()
+        .describe("The full job description text to compare against"),
     },
     async ({ job_description }) => {
       return {
@@ -75,7 +81,7 @@ Format the analysis in clear sections with bullet points for easy scanning.`,
           },
         ],
       };
-    }
+    },
   );
 
   server.prompt(
@@ -83,7 +89,10 @@ Format the analysis in clear sections with bullet points for easy scanning.`,
     "Generate likely interview questions and talking points for a role.",
     {
       role: z.string().describe("The job title/role being interviewed for"),
-      company: z.string().optional().describe("Optional company name for more targeted prep"),
+      company: z
+        .string()
+        .optional()
+        .describe("Optional company name for more targeted prep"),
     },
     async ({ role, company }) => {
       const companyContext = company ? ` at ${company}` : "";
@@ -122,7 +131,7 @@ Identify any gaps or areas where John might need to prepare additional context.`
           },
         ],
       };
-    }
+    },
   );
 
   server.prompt(
@@ -155,6 +164,6 @@ If the project isn't found, list available projects from get_projects() and sugg
           },
         ],
       };
-    }
+    },
   );
 }
