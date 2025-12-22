@@ -20,5 +20,6 @@
   "enableAllProjectMcpServers": true,
   "enabledMcpjsonServers": [
     "larkin-mcp"
-  ]
+  ],
+  "outputStyle": "default"
 }
