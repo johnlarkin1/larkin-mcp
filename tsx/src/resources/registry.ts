@@ -51,9 +51,7 @@ export function registerResources(server: McpServer): void {
     async (uri) => {
       const content = await loadResource("resume");
       return {
-        contents: [
-          { uri: uri.href, text: content, mimeType: "text/markdown" },
-        ],
+        contents: [{ uri: uri.href, text: content, mimeType: "text/markdown" }],
       };
     },
   );
@@ -94,9 +92,7 @@ export function registerResources(server: McpServer): void {
     async (uri) => {
       const content = await loadResource("bio");
       return {
-        contents: [
-          { uri: uri.href, text: content, mimeType: "text/markdown" },
-        ],
+        contents: [{ uri: uri.href, text: content, mimeType: "text/markdown" }],
       };
     },
   );
@@ -134,9 +130,7 @@ export function registerResources(server: McpServer): void {
     async (uri) => {
       const content = await loadResource("contact");
       return {
-        contents: [
-          { uri: uri.href, text: content, mimeType: "text/markdown" },
-        ],
+        contents: [{ uri: uri.href, text: content, mimeType: "text/markdown" }],
       };
     },
   );
@@ -152,9 +146,7 @@ export function registerResources(server: McpServer): void {
     async (uri) => {
       const content = await loadResource("skills");
       return {
-        contents: [
-          { uri: uri.href, text: content, mimeType: "text/markdown" },
-        ],
+        contents: [{ uri: uri.href, text: content, mimeType: "text/markdown" }],
       };
     },
   );
@@ -170,9 +162,7 @@ export function registerResources(server: McpServer): void {
     async (uri) => {
       const content = await loadResource("work");
       return {
-        contents: [
-          { uri: uri.href, text: content, mimeType: "text/markdown" },
-        ],
+        contents: [{ uri: uri.href, text: content, mimeType: "text/markdown" }],
       };
     },
   );
@@ -188,9 +178,7 @@ export function registerResources(server: McpServer): void {
     async (uri) => {
       const content = await loadResource("tennis");
       return {
-        contents: [
-          { uri: uri.href, text: content, mimeType: "text/markdown" },
-        ],
+        contents: [{ uri: uri.href, text: content, mimeType: "text/markdown" }],
       };
     },
   );

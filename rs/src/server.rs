@@ -1,9 +1,10 @@
 use rmcp::{
+    ErrorData as McpError, RoleServer,
     handler::server::{router::prompt::PromptRouter, tool::ToolRouter, wrapper::Parameters},
     model::*,
     prompt, prompt_handler, prompt_router,
     service::RequestContext,
-    tool, tool_handler, tool_router, ErrorData as McpError, RoleServer,
+    tool, tool_handler, tool_router,
 };
 use serde_json::json;
 
@@ -16,6 +17,11 @@ use crate::schema::{
 
 const RESUME_PDF: &[u8] = include_bytes!("resources/content/resume/larkin_resume.pdf");
 
+/// So this is really for my own learning, but the approach with rmcp
+/// is that these macros are pseuoequivalent to the Python decorators
+/// tool_router. Per the docs:
+/// "The #[tool_router] macro automatically generates the routing logic,
+/// and the #[tool] attribute marks methods as MCP tools."
 #[derive(Clone)]
 pub struct LarkinServer {
     tool_router: ToolRouter<Self>,
@@ -27,7 +33,6 @@ impl Default for LarkinServer {
         Self::new()
     }
 }
-
 
 #[tool_router]
 impl LarkinServer {
@@ -321,7 +326,6 @@ If the project isn't found, list available projects from get_projects() and sugg
     }
 }
 
-
 #[tool_handler]
 #[prompt_handler]
 impl rmcp::ServerHandler for LarkinServer {
@@ -378,7 +382,7 @@ impl rmcp::ServerHandler for LarkinServer {
                 contents: vec![ResourceContents::text(resources::RESUME, uri)],
             }),
             "larkin://resume.pdf" => {
-                use base64::{engine::general_purpose::STANDARD, Engine as _};
+                use base64::{Engine as _, engine::general_purpose::STANDARD};
                 let base64_data = STANDARD.encode(RESUME_PDF);
                 Ok(ReadResourceResult {
                     contents: vec![ResourceContents::BlobResourceContents {
