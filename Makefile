@@ -8,6 +8,7 @@
         build build-py build-ts build-rs \
         publish publish-py publish-ts publish-rs publish-py-dry publish-ts-dry publish-rs-dry \
         release release-dry \
+        bump version \
         clean clean-py clean-ts clean-rs
 
 # Default target
@@ -57,6 +58,10 @@ help:
 	@echo "  make publish-rs-dry - Dry run cargo publish"
 	@echo "  make release        - Full release workflow (tests, lint, publish, tag)"
 	@echo "  make release-dry    - Dry run of release workflow"
+	@echo ""
+	@echo "Version Commands:"
+	@echo "  make version        - Show current version"
+	@echo "  make bump           - Bump version based on branch (per .github/pr-labeler.yml)"
 	@echo ""
 	@echo "Clean Commands:"
 	@echo "  make clean          - Clean all build artifacts"
@@ -285,6 +290,16 @@ release:
 
 release-dry:
 	@./scripts/publish.sh --dry-run
+
+# =============================================================================
+# Version Commands
+# =============================================================================
+
+version:
+	@echo "Current version: $$(grep -E '^version = ' py/pyproject.toml | sed 's/version = \"\(.*\)\"/\1/')"
+
+bump:
+	@./scripts/bump-version.sh
 
 # =============================================================================
 # Clean Commands

@@ -28,7 +28,7 @@ asyncio_mode = "auto"
 
 [project]
 name = "larkin-mcp"
-version = "0.2.0"
+version = "0.2.1"
 description = "A MCP server for asking questions and getting context on John Larkin (johnlarkin1 GH profile, johnlarkin1.github.io)"
 readme = "README.md"
 requires-python = ">=3.11"

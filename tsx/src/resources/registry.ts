@@ -8,19 +8,31 @@ import { loadResource } from "../util/resources.js";
 import { resolve } from "path";
 
 export function registerResources(server: McpServer): void {
-  server.resource("config://version", "MCP server version", async () => ({
-    contents: [
-      { uri: "config://version", text: MCP_VERSION, mimeType: "text/plain" },
-    ],
-  }));
+  server.registerResource(
+    "version",
+    "config://version",
+    {
+      title: "Get version",
+      description: "MCP server version",
+      mimeType: "text/plain",
+    },
+    async (uri) => ({
+      contents: [{ uri: uri.href, text: MCP_VERSION, mimeType: "text/plain" }],
+    }),
+  );
 
-  server.resource(
+  server.registerResource(
+    "resume-version",
     "config://resume-version",
-    "Resume last updated date",
-    async () => ({
+    {
+      title: "Get resume version",
+      description: "Resume last updated date",
+      mimeType: "text/plain",
+    },
+    async (uri) => ({
       contents: [
         {
-          uri: "config://resume-version",
+          uri: uri.href,
           text: RESUME_DATE_VERSION,
           mimeType: "text/plain",
         },
@@ -28,23 +40,33 @@ export function registerResources(server: McpServer): void {
     }),
   );
 
-  server.resource(
+  server.registerResource(
+    "resume",
     "larkin://resume",
-    "John Larkin's resume in Markdown format",
-    async () => {
+    {
+      title: "Get resume",
+      description: "John Larkin's resume in Markdown format",
+      mimeType: "text/markdown",
+    },
+    async (uri) => {
       const content = await loadResource("resume");
       return {
         contents: [
-          { uri: "larkin://resume", text: content, mimeType: "text/markdown" },
+          { uri: uri.href, text: content, mimeType: "text/markdown" },
         ],
       };
     },
   );
 
-  server.resource(
+  server.registerResource(
+    "resume-pdf",
     "larkin://resume.pdf",
-    "John Larkin's resume in PDF format",
-    async () => {
+    {
+      title: "Get resume pdf",
+      description: "John Larkin's resume in PDF format",
+      mimeType: "application/pdf",
+    },
+    async (uri) => {
       const pdfPath = resolve(RESOURCES_DIR, "resume/larkin_resume.pdf");
       const file = Bun.file(pdfPath);
       const buffer = await file.arrayBuffer();
@@ -52,7 +74,7 @@ export function registerResources(server: McpServer): void {
       return {
         contents: [
           {
-            uri: "larkin://resume.pdf",
+            uri: uri.href,
             blob: base64,
             mimeType: "application/pdf",
           },
@@ -61,28 +83,38 @@ export function registerResources(server: McpServer): void {
     },
   );
 
-  server.resource(
+  server.registerResource(
+    "bio",
     "larkin://bio",
-    "John Larkin's extended biography",
-    async () => {
+    {
+      title: "Get bio",
+      description: "John Larkin's extended biography",
+      mimeType: "text/markdown",
+    },
+    async (uri) => {
       const content = await loadResource("bio");
       return {
         contents: [
-          { uri: "larkin://bio", text: content, mimeType: "text/markdown" },
+          { uri: uri.href, text: content, mimeType: "text/markdown" },
         ],
       };
     },
   );
 
-  server.resource(
+  server.registerResource(
+    "projects",
     "larkin://projects",
-    "Curated list of John's noteworthy projects",
-    async () => {
+    {
+      title: "Get projects",
+      description: "Curated list of John's noteworthy projects",
+      mimeType: "text/markdown",
+    },
+    async (uri) => {
       const content = await loadResource("projects");
       return {
         contents: [
           {
-            uri: "larkin://projects",
+            uri: uri.href,
             text: content,
             mimeType: "text/markdown",
           },
@@ -91,53 +123,73 @@ export function registerResources(server: McpServer): void {
     },
   );
 
-  server.resource(
+  server.registerResource(
+    "contact",
     "larkin://contact",
-    "Contact information for John Larkin",
-    async () => {
+    {
+      title: "Get contact",
+      description: "Contact information for John Larkin",
+      mimeType: "text/markdown",
+    },
+    async (uri) => {
       const content = await loadResource("contact");
       return {
         contents: [
-          { uri: "larkin://contact", text: content, mimeType: "text/markdown" },
+          { uri: uri.href, text: content, mimeType: "text/markdown" },
         ],
       };
     },
   );
 
-  server.resource(
+  server.registerResource(
+    "skills",
     "larkin://skills",
-    "John Larkin's skills overview",
-    async () => {
+    {
+      title: "Get skills",
+      description: "John Larkin's skills overview",
+      mimeType: "text/markdown",
+    },
+    async (uri) => {
       const content = await loadResource("skills");
       return {
         contents: [
-          { uri: "larkin://skills", text: content, mimeType: "text/markdown" },
+          { uri: uri.href, text: content, mimeType: "text/markdown" },
         ],
       };
     },
   );
 
-  server.resource(
+  server.registerResource(
+    "work",
     "larkin://work",
-    "John Larkin's work experience and employment history",
-    async () => {
+    {
+      title: "Get work",
+      description: "John Larkin's work experience and employment history",
+      mimeType: "text/markdown",
+    },
+    async (uri) => {
       const content = await loadResource("work");
       return {
         contents: [
-          { uri: "larkin://work", text: content, mimeType: "text/markdown" },
+          { uri: uri.href, text: content, mimeType: "text/markdown" },
         ],
       };
     },
   );
 
-  server.resource(
+  server.registerResource(
+    "tennis",
     "larkin://tennis",
-    "John Larkin's collegiate tennis career information",
-    async () => {
+    {
+      title: "Get tennis info",
+      description: "John Larkin's collegiate tennis career information",
+      mimeType: "text/markdown",
+    },
+    async (uri) => {
       const content = await loadResource("tennis");
       return {
         contents: [
-          { uri: "larkin://tennis", text: content, mimeType: "text/markdown" },
+          { uri: uri.href, text: content, mimeType: "text/markdown" },
         ],
       };
     },
