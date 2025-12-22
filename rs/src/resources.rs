@@ -6,8 +6,9 @@ pub const SKILLS: &str = include_str!("resources/content/skills.md");
 pub const WORK: &str = include_str!("resources/content/work.md");
 pub const TENNIS: &str = include_str!("resources/content/tennis.md");
 
-pub const RESOURCE_CATEGORIES: &[&str] =
-    &["resume", "bio", "projects", "contact", "skills", "work"];
+pub const RESOURCE_CATEGORIES: &[&str] = &[
+    "resume", "bio", "projects", "contact", "skills", "work", "tennis",
+];
 
 pub fn get_resource(name: &str) -> Option<&'static str> {
     match name {
