@@ -1,6 +1,6 @@
 {
-  "name": "larkin-mcp",
-  "version": "0.2.2",
+  "name": "@johnlarkin1/larkin-mcp",
+  "version": "1.0.0",
   "description": "A MCP server for asking questions and getting context on John Larkin (johnlarkin1 GH profile, johnlarkin1.github.io)",
   "type": "module",
   "author": "John Larkin <john@johnjlarkin.com>",
