@@ -148,11 +148,12 @@ update_rs_version() {
     local file="$ROOT_DIR/rs/Cargo.toml"
 
     if [[ -f "$file" ]]; then
-        # Only update the package version, not dependency versions
+        # Only update the package version (line starts with version =)
+        # Dependency versions are inline like { version = "x" } so won't match
         if [[ "$(uname)" == "Darwin" ]]; then
-            sed -i '' '0,/^version = ".*"/s//version = "'"$version"'"/' "$file"
+            sed -i '' "s/^version = \".*\"/version = \"$version\"/" "$file"
         else
-            sed -i '0,/^version = ".*"/s//version = "'"$version"'"/' "$file"
+            sed -i "s/^version = \".*\"/version = \"$version\"/" "$file"
         fi
         log_info "Updated rs/Cargo.toml -> $version"
     else

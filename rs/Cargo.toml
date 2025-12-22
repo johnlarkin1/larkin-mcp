@@ -1,6 +1,6 @@
 [package]
 name = "larkin-mcp"
-version = "0.2.0"
+version = "0.2.2"
 edition = "2024"
 description = "MCP server providing information about John Larkin"
 authors = ["John Larkin <john@johnjlarkin.com>"]
