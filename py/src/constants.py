@@ -8,7 +8,7 @@ MCP_INSTRUCTIONS = (
     "allows helpful tooling for more info"
 )
 MCP_WEBSITE_URL = "https://johnlarkin1.github.io/2025/larkin-mcp"
-MCP_VERSION = "0.1.0"
+MCP_VERSION = "0.2.0"
 
 # Resources
 RESOURCES_DIR = Path(__file__).parent / "resources" / "content"

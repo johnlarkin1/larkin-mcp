@@ -1,0 +1,39 @@
+name: Deploy Rust
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version to deploy (e.g., 0.2.0 or v0.2.0)'
+        required: true
+        type: string
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: crates
+    steps:
+      - name: Parse version input
+        id: parse
+        run: |
+          INPUT="${{ inputs.version }}"
+          VERSION="${INPUT#v}"
+          TAG="v$VERSION"
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          echo "tag=$TAG" >> $GITHUB_OUTPUT
+
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ steps.parse.outputs.tag }}
+
+      - name: Validate tag exists
+        run: git describe --tags --exact-match
+
+      - name: Install Rust toolchain
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Publish to crates.io
+        run: cd rs && cargo publish
+        env:
+          CARGO_REGISTRY_TOKEN: ${{ secrets.CARGO_REGISTRY_TOKEN }}

@@ -1,5 +1,9 @@
 import { describe, expect, test } from "bun:test";
-import { loadResource, listResources, searchResources } from "../src/util/resources";
+import {
+  loadResource,
+  listResources,
+  searchResources,
+} from "../src/util/resources";
 
 describe("loadResource", () => {
   test("load resume", async () => {

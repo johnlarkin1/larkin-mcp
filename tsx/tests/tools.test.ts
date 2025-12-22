@@ -4,11 +4,15 @@ import { loadResource, searchResources } from "../src/util/resources";
 
 describe("health_check logic", () => {
   test("returns expected structure", async () => {
-    const resourcesStatus: Record<string, { available: boolean; size_bytes: number }> = {};
+    const resourcesStatus: Record<
+      string,
+      { available: boolean; size_bytes: number }
+    > = {};
 
     for (const resource of RESOURCES_CATEGORIES) {
       const content = await loadResource(resource);
-      const isAvailable = !content.startsWith("Resource '") && !content.startsWith("Error");
+      const isAvailable =
+        !content.startsWith("Resource '") && !content.startsWith("Error");
       resourcesStatus[resource] = {
         available: isAvailable,
         size_bytes: isAvailable ? Buffer.byteLength(content, "utf-8") : 0,
@@ -45,7 +49,9 @@ describe("search_info logic", () => {
     if (Object.keys(results).length > 0) {
       const output: string[] = [];
       for (const [resource, lines] of Object.entries(results)) {
-        output.push(`## ${resource.charAt(0).toUpperCase() + resource.slice(1)}`);
+        output.push(
+          `## ${resource.charAt(0).toUpperCase() + resource.slice(1)}`,
+        );
         for (const line of (lines as string[]).slice(0, 5)) {
           output.push(`  - ${line.trim()}`);
         }

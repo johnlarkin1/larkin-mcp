@@ -1,9 +1,14 @@
 import { existsSync } from "fs";
 import { resolve } from "path";
-import { RESOURCES_CATEGORIES, RESOURCES_DIR, RESUME_MD_PATH } from "../constants.js";
+import {
+  RESOURCES_CATEGORIES,
+  RESOURCES_DIR,
+  RESUME_MD_PATH,
+} from "../constants.js";
 
 export async function loadResource(name: string): Promise<string> {
-  const path = name === "resume" ? RESUME_MD_PATH : resolve(RESOURCES_DIR, `${name}.md`);
+  const path =
+    name === "resume" ? RESUME_MD_PATH : resolve(RESOURCES_DIR, `${name}.md`);
 
   const file = Bun.file(path);
   if (!(await file.exists())) {
@@ -30,13 +35,17 @@ export function listResources(): string[] {
   return resources;
 }
 
-export async function searchResources(query: string): Promise<Record<string, string[]>> {
+export async function searchResources(
+  query: string,
+): Promise<Record<string, string[]>> {
   const results: Record<string, string[]> = {};
   const queryLower = query.toLowerCase();
 
   for (const resourceName of listResources()) {
     const content = await loadResource(resourceName);
-    const matchingLines = content.split("\n").filter((line) => line.toLowerCase().includes(queryLower));
+    const matchingLines = content
+      .split("\n")
+      .filter((line) => line.toLowerCase().includes(queryLower));
 
     if (matchingLines.length > 0) {
       results[resourceName] = matchingLines;
