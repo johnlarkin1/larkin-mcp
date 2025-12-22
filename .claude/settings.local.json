@@ -13,9 +13,12 @@
       "WebFetch(domain:github.com)",
       "mcp__larkin-mcp-py__get_work",
       "mcp__larkin-mcp-py__get_projects",
-      "mcp__larkin-mcp-py__get_resume"
+      "mcp__larkin-mcp-py__get_resume",
+      "Bash(cat:*)"
     ]
   },
   "enableAllProjectMcpServers": true,
-  "enabledMcpjsonServers": ["larkin-mcp"]
+  "enabledMcpjsonServers": [
+    "larkin-mcp"
+  ]
 }

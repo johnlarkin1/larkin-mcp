@@ -1,6 +1,6 @@
 {
   "name": "larkin-mcp",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "A MCP server for asking questions and getting context on John Larkin (johnlarkin1 GH profile, johnlarkin1.github.io)",
   "type": "module",
   "author": "John Larkin <john@johnjlarkin.com>",
@@ -10,7 +10,12 @@
     "url": "https://github.com/johnlarkin1/larkin-mcp.git"
   },
   "homepage": "https://github.com/johnlarkin1/larkin-mcp",
-  "keywords": ["mcp", "model-context-protocol", "llm", "claude"],
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "llm",
+    "claude"
+  ],
   "bin": {
     "larkin-mcp": "./dist/index.js"
   },

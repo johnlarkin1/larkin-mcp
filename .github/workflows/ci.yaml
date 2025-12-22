@@ -1,0 +1,136 @@
+name: CI
+
+on:
+  push:
+    branches: ["**"]
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  label-pr:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Apply label based on branch prefix
+        uses: TimonVS/pr-labeler-action@v5
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          configuration-path: .github/pr-labeler.yml
+
+  python:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: py
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+        with:
+          version: "latest"
+
+      - name: Set up Python
+        run: uv python install 3.12
+
+      - name: Install dependencies
+        run: uv sync --group dev
+
+      - name: Lint with ruff
+        run: uv run ruff check .
+
+      - name: Check formatting with ruff
+        run: uv run ruff format --check .
+
+      - name: Type check with mypy
+        run: uv run mypy src/
+
+      - name: Run tests
+        run: uv run pytest
+
+  typescript:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: tsx
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - name: Install dependencies
+        run: bun install
+
+      - name: Lint with prettier
+        run: bunx prettier --check "**/*.{ts,tsx,js,jsx,json}"
+
+      - name: Run tests
+        run: bun test
+
+  rust:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: rs
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Rust toolchain
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          components: rustfmt, clippy
+
+      - name: Cache cargo registry and build
+        uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: "rs -> target"
+
+      - name: Check formatting
+        run: cargo fmt --check
+
+      - name: Lint with clippy
+        run: cargo clippy -- -D warnings
+
+      - name: Run tests
+        run: cargo test
+
+  # Validate all 3 package files have the same version
+  version-sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check version sync across packages
+        run: |
+          # Extract versions from each package file
+          PY_VERSION=$(grep -E '^version = "' py/pyproject.toml | head -1 | sed 's/version = "\(.*\)"/\1/')
+          TS_VERSION=$(grep '"version"' tsx/package.json | head -1 | sed 's/.*"version": "\([^"]*\)".*/\1/')
+          RS_VERSION=$(grep -E '^version = "' rs/Cargo.toml | head -1 | sed 's/version = "\(.*\)"/\1/')
+
+          echo "Python version:     $PY_VERSION"
+          echo "TypeScript version: $TS_VERSION"
+          echo "Rust version:       $RS_VERSION"
+
+          # Check all versions match
+          if [[ "$PY_VERSION" != "$TS_VERSION" ]] || [[ "$PY_VERSION" != "$RS_VERSION" ]]; then
+            echo ""
+            echo "ERROR: Version mismatch detected!"
+            echo "All three package files must have the same version."
+            echo ""
+            echo "Files to update:"
+            echo "  - py/pyproject.toml"
+            echo "  - tsx/package.json"
+            echo "  - rs/Cargo.toml"
+            exit 1
+          fi
+
+          echo ""
+          echo "All versions in sync: $PY_VERSION"

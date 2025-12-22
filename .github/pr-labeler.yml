@@ -1,0 +1,17 @@
+# used by TimonVS/pr-labeler-action in CI workflow
+# couple of other alternatives but this one seems sufficient
+major:
+  - release/*
+  - breaking/*
+
+minor:
+  - feature/*
+  - feat/*
+
+patch:
+  - fix/*
+  - hotfix/*
+  - bugfix/*
+  - chore/*
+  - docs/*
+  - refactor/*
