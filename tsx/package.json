@@ -35,5 +35,8 @@
   },
   "devDependencies": {
     "@types/bun": "latest"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
