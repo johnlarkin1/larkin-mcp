@@ -1,6 +1,8 @@
-<img width="1920" height="1080" alt="hero" src="https://github.com/user-attachments/assets/5d911d4e-9d97-441f-b29a-03a16ce824d0" />
+<img width="960" height="540" alt="hero" src="https://github.com/user-attachments/assets/094c8e05-b2de-4213-952f-c5542ccb354a" />
 
 For more info, check out the blog post [here](https://johnlarkin1.github.io/2025/larkin-mcp/) or here: https://johnlarkin1.github.io/2025/larkin-mcp/
+
+Slight lie with the photo though is that the Typescript version is that I did scope that one.... so it's actually `bunx @johnlarkin1/larkin-mcp`  rather than just `bunx larkin-mcp`. I talk about why I did this in the blog.
 
 # larkin-mcp
 
